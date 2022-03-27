@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_repository/weather_repository.dart';
 
+import 'weather/weather.dart';
 import 'theme/theme.dart';
 import 'router.dart';
 
-final themeProvider =
-    StateNotifierProvider<ThemeNotifier, ThemeState>((ref) => ThemeNotifier());
+final weatherProvider = StateNotifierProvider<WeatherNotifier, WeatherState>(
+    (ref) => WeatherNotifier(WeatherRepository()));
+final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeState>((ref) {
+  final themeNotifier = ThemeNotifier();
+  final weatherState = ref.watch(weatherProvider);
+  if (weatherState.weather != null) {
+    themeNotifier.change(weatherState.weather!);
+  }
+  return themeNotifier;
+});
 
 class WeatherApp extends ConsumerWidget {
   const WeatherApp({Key? key}) : super(key: key);

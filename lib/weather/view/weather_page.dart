@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:weather_repository/weather_repository.dart';
 
-import '../../theme/theme.dart';
+import '../../app.dart';
 import '../weather.dart';
-
-final repositoryProvider = Provider((ref) => WeatherRepository());
-final weatherProvider = StateNotifierProvider<WeatherNotifier, WeatherState>(
-    (ref) => WeatherNotifier(ref.watch(repositoryProvider)));
-final themeProvider =
-    StateNotifierProvider<ThemeNotifier, ThemeState>((ref) => ThemeNotifier());
 
 class WeatherPage extends ConsumerWidget {
   const WeatherPage({Key? key}) : super(key: key);
@@ -18,9 +11,6 @@ class WeatherPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WeatherState state = ref.watch(weatherProvider);
-    if (state.status.isSuccess) {
-      ref.read(themeProvider.notifier).change(state.weather!);
-    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter Weather'),
