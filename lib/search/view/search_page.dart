@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../weather/weather.dart';
 
-class SearchPage extends StatefulWidget {
-  const SearchPage._({Key? key}) : super(key: key);
-
-  static Route<String> route() {
-    return MaterialPageRoute(builder: (_) => const SearchPage._());
-  }
+class SearchPage extends ConsumerStatefulWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  ConsumerState<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends ConsumerState<SearchPage> {
   final TextEditingController _textController = TextEditingController();
 
   String get _text => _textController.text;
@@ -35,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
                 controller: _textController,
                 decoration: const InputDecoration(
                   labelText: 'City',
-                  hintText: 'Chicago',
+                  hintText: 'Taipei',
                 ),
               ),
             ),
@@ -43,7 +41,10 @@ class _SearchPageState extends State<SearchPage> {
           IconButton(
             key: const Key('searchPage_search_iconButton'),
             icon: const Icon(Icons.search),
-            onPressed: () => Navigator.of(context).pop(_text),
+            onPressed: () {
+              ref.read(weatherProvider.notifier).start(_text);
+              Navigator.of(context).pop();
+            },
           )
         ],
       ),

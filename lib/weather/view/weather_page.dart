@@ -68,10 +68,8 @@ class WeatherView extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search),
         onPressed: () async {
-          final city = await Navigator.of(context).push(SearchPage.route());
-          if (city != null) {
-            ref.read(weatherProvider.notifier).start(city);
-          }
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => SearchPage()));
         },
       ),
     );
