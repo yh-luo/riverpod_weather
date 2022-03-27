@@ -4,12 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../weather/weather.dart';
 
 class SettingsPage extends ConsumerWidget {
-  const SettingsPage._({Key? key}) : super(key: key);
-
-  static Route<String> route(
-      StateNotifierProvider<WeatherNotifier, WeatherState> weatherProvider) {
-    return MaterialPageRoute(builder: (_) => const SettingsPage._());
-  }
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

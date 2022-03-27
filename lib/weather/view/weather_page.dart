@@ -38,7 +38,8 @@ class WeatherView extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              Navigator.of(context).push(SettingsPage.route(weatherProvider));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => SettingsPage()));
             },
           ),
         ],
