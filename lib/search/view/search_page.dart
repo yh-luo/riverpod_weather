@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../weather/weather.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
@@ -43,7 +44,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             icon: const Icon(Icons.search),
             onPressed: () {
               ref.read(weatherProvider.notifier).start(_text);
-              Navigator.of(context).pop();
+              context.pop();
             },
           )
         ],

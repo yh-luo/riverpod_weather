@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'theme/theme.dart';
-import 'weather/weather.dart';
+import 'router.dart';
 
 final themeProvider =
     StateNotifierProvider<ThemeNotifier, ThemeState>((ref) => ThemeNotifier());
@@ -16,7 +16,9 @@ class WeatherApp extends ConsumerWidget {
     ThemeState state = ref.watch(themeProvider);
     final textTheme = Theme.of(context).textTheme;
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
       theme: ThemeData(
         primaryColor: state.color,
         textTheme: GoogleFonts.rajdhaniTextTheme(),
@@ -26,7 +28,6 @@ class WeatherApp extends ConsumerWidget {
               .headline6,
         ),
       ),
-      home: const WeatherPage(),
     );
   }
 }
