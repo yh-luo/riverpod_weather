@@ -9,7 +9,9 @@ part 'weather_state.dart';
 part 'weather_notifier.freezed.dart';
 
 class WeatherNotifier extends StateNotifier<WeatherState> {
-  WeatherNotifier(this._weatherRepository) : super(const WeatherState());
+  WeatherNotifier(WeatherRepository weatherRepository)
+      : _weatherRepository = weatherRepository,
+        super(const WeatherState());
 
   final WeatherRepository _weatherRepository;
 
@@ -73,17 +75,15 @@ class WeatherNotifier extends StateNotifier<WeatherState> {
     }
 
     final weather = state.weather;
-    if (weather != Weather.empty) {
-      final temperature = weather!.temperature;
-      final value = units.isCelsius
-          ? temperature.value.toCelsius()
-          : temperature.value.toFahrenheit();
+    final temperature = weather!.temperature;
+    final value = units.isCelsius
+        ? temperature.value.toCelsius()
+        : temperature.value.toFahrenheit();
 
-      state = state.copyWith(
-        temperatureUnits: units,
-        weather: weather.copyWith(temperature: Temperature(value: value)),
-      );
-    }
+    state = state.copyWith(
+      temperatureUnits: units,
+      weather: weather.copyWith(temperature: Temperature(value: value)),
+    );
   }
 }
 

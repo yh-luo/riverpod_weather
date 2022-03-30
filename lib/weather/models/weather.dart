@@ -41,11 +41,4 @@ class Weather with _$Weather {
       temperature: Temperature(value: weather.temperature),
     );
   }
-
-  static final empty = Weather(
-    condition: WeatherCondition.unknown,
-    lastUpdated: DateTime(0),
-    temperature: const Temperature(value: 0),
-    location: '--',
-  );
 }
